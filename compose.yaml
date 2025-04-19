@@ -1,0 +1,38 @@
+services:
+  app_api:
+    build: ./app_api 
+    ports:
+      - 8080:80
+    volumes: #Lier to the local directory
+      - ./app_api/app:/code/app
+    command: 
+    - fastapi 
+    - dev 
+    - app/main.py 
+    - --port 
+    - "80" 
+    - --host 
+    - "0.0.0.0"
+    depends_on:
+      - db
+  db:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: password
+    tmpfs:
+      - /var/lib/postgresql/data
+
+  discord_bot:
+    build: ./app_bot
+    volumes:
+      - ./app_bot:/code_bot
+    working_dir: /code_bot/bot
+    command: ["python", "v3.py"]
+    depends_on:
+      - app_api
+    
+  
+    
+# docker compose up --build

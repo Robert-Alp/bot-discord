@@ -1,0 +1,7 @@
+# pip install -r requirements.txt
+fastapi[standard]
+httpx
+dotenv
+sqlmodel
+psycopg2-binary
+psycopg2
