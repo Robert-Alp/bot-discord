@@ -3,7 +3,7 @@ services:
     build: ./app_api 
     ports:
       - 8080:80
-    volumes: #Lier to the local directory
+    volumes: 
       - ./app_api/app:/code/app
     command: 
     - fastapi 
